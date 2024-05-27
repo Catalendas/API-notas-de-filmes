@@ -26,13 +26,15 @@ class UserController {
 
     async update(req, res) {
         const { name, email, password, old_password, avatar} = req.body
-        const { user_id } = req.params
+        const user_id = req.user.id
 
         const [userAlredyExists] = await knex("users").where({ id: user_id })
 
         if (userAlredyExists.id != user_id) {
             throw new AppError("This user is not exist")
         }
+
+        console.log(req.body)
 
         const [userWithUpdatedEmail] = await knex("users").where({ email })
 

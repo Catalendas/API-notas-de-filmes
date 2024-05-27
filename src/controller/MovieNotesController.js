@@ -46,7 +46,7 @@ class MovieNotesController {
 
     async create(req, res) {
         const { title, description, rating, tags } = req.body
-        const { user_id } = req.params
+        const user_id = req.user.id
 
         const [userAlredyExists] = await knex("users").where({ id: user_id })
 
